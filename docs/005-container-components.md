@@ -10,7 +10,7 @@ PartyPooperListContainer => PartyPooperList
 ```
 + https://medium.com/@learnreact/container-components-c0e67432e005
 + https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-
++ http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html
 
 ## bad:
 ```js
