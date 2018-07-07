@@ -1,0 +1,11 @@
+{
+  "name": "redux-notes",
+  "version": "0.0.1",
+  "description": "Redux learning notes",
+  "homepage": "https://github.com/afeiship/redux-notes",
+  "author": {
+    "name": "afei",
+    "email": "1290657123@qq.com"
+  },
+  "license": "MIT"
+}
