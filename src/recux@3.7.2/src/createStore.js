@@ -37,6 +37,11 @@ export const ActionTypes = {
  * and subscribe to changes.
  */
 export default function createStore(reducer, preloadedState, enhancer) {
+  /**
+   * 1. reducer 这个参数不用解释，这个为必须的，就是 reducer 这个不会变化
+   * 2. preloadedState 这个参数可能是 middlewareEnhance/initailState
+   * 3.
+   */
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
     enhancer = preloadedState
     preloadedState = undefined

@@ -1,4 +1,6 @@
 var Symbol_observable = require('symbol-observable').default;
+
+console.log(Symbol_observable)
 var someObject = {
   name: 'fei'
 };

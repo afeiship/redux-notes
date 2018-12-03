@@ -46,3 +46,39 @@ someObject[Symbol_observable] = () => {
 
 Often, it's not very hard, but it can get tricky in some cases.
 
+
+
+### 看完源码，才知道：
+```js
+export default function symbolObservablePonyfill(root) {
+	var result;
+	var Symbol = root.Symbol;
+
+	if (typeof Symbol === 'function') {
+		if (Symbol.observable) {
+			result = Symbol.observable;
+		} else {
+			result = Symbol('observable');
+			Symbol.observable = result;
+		}
+	} else {
+		result = '@@observable';
+	}
+
+	return result;
+};
+
+// 这个就是生成一个 observe 的不重复的 `KEY`
+// 就像我自己的库里这样： @meta/@member 
+```
+
+
+
+
+## 初始的状态值 KEY: `@@redux/INIT`
+```js
+export const ActionTypes = {
+  INIT: '@@redux/INIT'
+}
+// 按上面的逻辑，这里完全也可以使用 Symbol 的思路来做
+```
