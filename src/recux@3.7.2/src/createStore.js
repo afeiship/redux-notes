@@ -50,6 +50,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
   /**
    * 1. 插件必须为 function
    * 2. 插件会这样返回 pluginFn(createStore)(reducer, preloadedState)
+   * 3. 这是一个中间件，返回一个增强版的 createStore?、这段得结合 applyMiddleware 来看
    */
   if (typeof enhancer !== 'undefined') {
     if (typeof enhancer !== 'function') {
@@ -81,6 +82,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
   /**
    * Mutate:（使某物） 变化
+   * 如果 NextListeners 和 current 相同
+   * 则把当前的 listeners 浅 copy 一份给 nextLiteners
    */
   function ensureCanMutateNextListeners() {
     if (nextListeners === currentListeners) {
