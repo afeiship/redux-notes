@@ -40,13 +40,17 @@ export default function createStore(reducer, preloadedState, enhancer) {
   /**
    * 1. reducer 这个参数不用解释，这个为必须的，就是 reducer 这个不会变化
    * 2. preloadedState 这个参数可能是 middlewareEnhance/initailState
-   * 3.
+   * 3. enhancer 如果有这个参数 ，这个参数就表示插件了
    */
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
     enhancer = preloadedState
     preloadedState = undefined
   }
 
+  /**
+   * 1. 插件必须为 function
+   * 2. 插件会这样返回 pluginFn(createStore)(reducer, preloadedState)
+   */
   if (typeof enhancer !== 'undefined') {
     if (typeof enhancer !== 'function') {
       throw new Error('Expected the enhancer to be a function.')
@@ -55,16 +59,29 @@ export default function createStore(reducer, preloadedState, enhancer) {
     return enhancer(createStore)(reducer, preloadedState)
   }
 
+  /**
+   * reducer 如果存在就必须为 function
+   */
   if (typeof reducer !== 'function') {
     throw new Error('Expected the reducer to be a function.')
   }
 
+  /**
+   * 1. 传入的 reducer 赋值给 currentReducer
+   * 2. 传入的 state 赋值给 currentState
+   * 3. 当前的 listeners 初始化为 []
+   * 4. nextListeners 赋值为 currentListeners
+   * 5. isDispatching 初始化为 false
+   */
   let currentReducer = reducer
   let currentState = preloadedState
   let currentListeners = []
   let nextListeners = currentListeners
   let isDispatching = false
 
+  /**
+   * Mutate:（使某物） 变化
+   */
   function ensureCanMutateNextListeners() {
     if (nextListeners === currentListeners) {
       nextListeners = currentListeners.slice()
@@ -73,6 +90,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
   /**
    * Reads the state tree managed by the store.
+   * FEI: 获取当前的 state
    *
    * @returns {any} The current state tree of your application.
    */
@@ -104,12 +122,21 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * @returns {Function} A function to remove this change listener.
    */
   function subscribe(listener) {
+    /**
+     * 一个输入参数的检测： 传入的 listener 必须为一个 function
+     */
     if (typeof listener !== 'function') {
       throw new Error('Expected listener to be a function.')
     }
 
+    /**
+     * 只要进入此方法 isSubscribed 则为 true
+     */
     let isSubscribed = true
 
+    /**
+     * 数组中 push 一项，即可
+     */
     ensureCanMutateNextListeners()
     nextListeners.push(listener)
 
@@ -121,6 +148,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
       isSubscribed = false
 
       ensureCanMutateNextListeners()
+      /**
+       * 删除对应的 listener
+       */
       const index = nextListeners.indexOf(listener)
       nextListeners.splice(index, 1)
     }
@@ -152,6 +182,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * return something else (for example, a Promise you can await).
    */
   function dispatch(action) {
+    /**
+     * 传入的 action 必须为一个 object
+     */
     if (!isPlainObject(action)) {
       throw new Error(
         'Actions must be plain objects. ' +
@@ -159,6 +192,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
       )
     }
 
+    /**
+     * 必须含有一个 { type: 'test' } 这样的 key
+     */
     if (typeof action.type === 'undefined') {
       throw new Error(
         'Actions may not have an undefined "type" property. ' +
