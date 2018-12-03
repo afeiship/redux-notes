@@ -60,6 +60,13 @@
 ```
 
 ## 为什么不需要每次 splice()
+~~~
+简单来说就是在listener中可能有unsubscribe操作，比如有3个listener(下标0,1,2)，在第2个listener执行时unsubscribe了自己
+那么第3个listener的下标就变成了1，但是for循环下一轮的下标是2，第3个listener就被跳过了
+所以执行一次深拷贝，即使在listener过程中unsubscribe了也是更改的nextListeners（nextListeners会去深拷贝currentListeners）
+当前执行的currentListeners不会被修改，也就是所谓的快照
+~~~
+
 - 只有 subscribe
 - 只有 unsbuscribe
 - 这两个时间会对 listeners 的 length 进行改变，所以只要在这两个时机更新一下 listeners 的值就行了
