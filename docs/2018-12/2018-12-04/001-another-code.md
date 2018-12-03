@@ -59,7 +59,7 @@
   }
 ```
 
-## 为什么不需要每次 splice()
+## 为什么不需要每次 slice()
 ~~~
 简单来说就是在listener中可能有unsubscribe操作，比如有3个listener(下标0,1,2)，在第2个listener执行时unsubscribe了自己
 那么第3个listener的下标就变成了1，但是for循环下一轮的下标是2，第3个listener就被跳过了
