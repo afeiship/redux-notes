@@ -43,7 +43,7 @@
     // 只要进行了一次dispatch，那么currentListeners === nextListeners，之后的subscribe和unsubscribe就必须深拷贝一次（因为nextListeners和currentListeners此时===）
     // 否则可以一直对nextListeners操作而不需要为currentListeners深拷贝赋值，即只在必要时深拷贝
     const listeners = (currentListeners = nextListeners)
-    // 这里使用for而不是forEach，是因为listeners是我们自己创造的，不存在稀疏组的情况，所有直接用for性能来得更好
+    // 这里使用for而不是forEach，是因为listeners是我们自己创造的，不存在wo的情况，所有直接用for性能来得更好
     // 见 https://github.com/reactjs/redux/commit/5b586080b43ca233f78d56cbadf706c933fefd19
     // 附上Dan的原话：This is an optimization because forEach() has more complicated logic per spec to deal with sparse arrays. Also it's better to not allocate a function when we can easily avoid that.
     // 这里没有缓存listeners.length，Dan相信V8足够智能会自动缓存，相比手工缓存性能更好
