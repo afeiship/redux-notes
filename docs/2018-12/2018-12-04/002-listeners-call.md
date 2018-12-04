@@ -66,6 +66,13 @@ Array.apply(null, Array(3)).map(Function.prototype.call.bind(Number))
 ## 自己做的一个测试：
 <img width="500" src="https://ws4.sinaimg.cn/large/006tNbRwly1fxumwzugvrj30xo0u0dku.jpg"/>
 
+
+~~~
+结论(conclusion)：
+1. 如果是 稀疏数组，forEach 应该会内部优化，只会循环较少的次数
+2. 如果是 秘籍数组， for 循环因为内部逻辑相对简单，所以，性能会较好
+~~~
+
 ```js
 // 稀疏数组
 var ary1 = Array(3)
@@ -86,8 +93,3 @@ ary1.forEach((item,i)=>{
 Object.keys(ary1) => ["0","10"]
 ```
 
-~~~
-结论(conclusion)：
-1. 如果是 稀疏数组，forEach 应该会内部优化，只会循环较少的次数
-2. 如果是 秘籍数组， for 循环因为内部逻辑相对简单，所以，性能会较好
-~~~
