@@ -81,6 +81,9 @@ for(var i=0; i<ary1.length; i++){
 ary1.forEach((item,i)=>{
   console.log('each:',i)
 })
+
+// 测试了一下这种数组：
+Object.keys(ary1) => ["0","10"]
 ```
 
 ~~~
