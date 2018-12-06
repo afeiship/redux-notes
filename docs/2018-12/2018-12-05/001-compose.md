@@ -133,6 +133,7 @@ function compose3(){
   return funcs.reduce(function(a,b){
     return function(){
       var args = [].slice.call(arguments);
+      // 因为 compose 的参数都是 pure function ，所以，apply 和 call 都对 context 没有要求
       return a(b.apply(null,args));
     }
   })
