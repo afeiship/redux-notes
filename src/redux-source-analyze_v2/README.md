@@ -1,6 +1,9 @@
 # Redux-source-analyze
 Redux 源码分析
 
+### 文章
+https://segmentfault.com/a/1190000007737370
+
 ### 介绍
 我分析的是用 es6 语法的源码，大家看目录结构，一共有 6 个文件。各个文件功能,想要查看更细节的东西，直接看 src文件件下的源码
 
