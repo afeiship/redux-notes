@@ -5,7 +5,7 @@ function Test (state, action) {
         case 'aa':
             return state;
             break;
-    
+
         default:
             break;
     }
