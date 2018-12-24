@@ -73,7 +73,7 @@ const mapStateToProps = (state) => {
 
 
 ## 详细的用法看这个例子：
-- simplest-redux-example
+- https://github.com/jackielii/simplest-redux-example
 
 
 
