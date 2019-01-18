@@ -12,3 +12,13 @@ invariant(someTruthyVal, 'This will not throw');
 invariant(someFalseyVal, 'This will throw an error with this message');
 // Error: Invariant Violation: This will throw an error with this message
 ```
+
+## 在 react-redux 源码中的实际应用：
+```js
+// 还支持传参数进来：
+invariant(
+  isPlainObject(stateProps),
+  '`mapStateToProps` must return an object. Instead received %s.',
+  stateProps
+);
+```
