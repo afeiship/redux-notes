@@ -1,5 +1,5 @@
 # wrapActionCreators
-> Wrap acton creators
+> Wrap acton creators.
 
 ## code
 
