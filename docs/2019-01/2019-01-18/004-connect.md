@@ -4,6 +4,8 @@
 
 ## core code:
 ```js
+// 最外层的闭包：
+
 export default function createConnect(React) {
   const { Component, PropTypes } = React;
   const storeShape = createStoreShape(PropTypes);
@@ -88,6 +90,22 @@ export default function createConnect(React) {
                               {...this.state.props} />
           );
         }
+      }
+
+      if ( __DEV__ ) {
+        Connect.prototype.componentWillUpdate = function componentWillUpdate() {
+          if (this.version === version) {
+            return;
+          }
+
+          // We are hot reloading!
+          this.version = version;
+          // Update the state and bindings.
+          // this.trySubscribe();
+          // this.updateStateProps();
+          // this.updateDispatchProps();
+          // this.updateState();
+        };
       }
 
       return Connect;
