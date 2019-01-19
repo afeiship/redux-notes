@@ -44,6 +44,11 @@ export default function createProvider(React) {
       this.state = { store: props.store };
     }
 
+    /*
+    当 provider 上 store 有新的更新的时候(是否出现在 hot reload 的场景)
+    如果确实用户用了新的 store，这里就会用 replaceReducer 方法，重新初始化 store 里的  reducer
+    这里有问题：为什么不直接替换掉 store？
+    */
     componentWillReceiveProps(nextProps) {
       const { store } = this.state;
       const { store: nextStore } = nextProps;
@@ -54,6 +59,10 @@ export default function createProvider(React) {
       }
     }
 
+    /*
+    这里的 children 的处理是历史问题
+    暂时可以略过，晚点补充具体的问题所在
+    */
     render() {
       let { children } = this.props;
 
