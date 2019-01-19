@@ -5,32 +5,70 @@
 ## core code:
 ```js
 // 最外层的闭包：
+/*
+此处会创建好 Provider/connect:
+export default function createAll(React) {
+  const Provider = createProvider(React);
+  const connect = createConnect(React);
+  return { Provider, connect };
+}
+*/
+
+/*
+这里之所以要用 createConnect 是因为
+这个 React 需要传入 React/ReactNative 或者其它 第三方的 react
+*/
 
 export default function createConnect(React) {
+  /*
+  PropTypes: 这个包成了一个独立的包了
+  createStoreShape:
+
+  //这里其实就是做一个 shap 结构体：
+  PropTypes.shape({
+    subscribe: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    getState: PropTypes.func.isRequired
+  })
+  */
   const { Component, PropTypes } = React;
   const storeShape = createStoreShape(PropTypes);
 
   return function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
     return function wrapWithConnect(WrappedComponent) {
       class Connect extends Component {
+        /*
+        传入组件有一个 displayName，这里会加一个 `Connect 连起来`
+        */
         static displayName = `Connect(${getDisplayName(WrappedComponent)})`;
         static WrappedComponent = WrappedComponent;
 
-        static contextTypes = {
-          store: storeShape
-        };
+        /*
+        props/context: 都可以接受一个名为  store 的参数
+        */
+        static contextTypes = { store: storeShape };
+        static propTypes = { store: storeShape };
 
-        static propTypes = {
-          store: storeShape
-        };
-
+        /*
+        1. lifeCycle: shouldComponentUpdate
+        2. shalloEqual不相等则 Update
+        */
         shouldComponentUpdate(nextProps, nextState) {
           return !shallowEqual(this.state.props, nextState.props);
         }
 
         constructor(props, context) {
+          /*
+          props/context 可以作为 constructor 构造参数
+          */
           super(props, context);
+          /*
+          hot reloader for react: version === nextVersion
+          */
           this.version = version;
+          /*
+          从 props/context 中取得 store
+          */
           this.store = props.store || context.store;
 
           invariant(this.store,
@@ -70,25 +108,33 @@ export default function createConnect(React) {
           }
         }
 
+        /*
+        1. lifeCycle: componentDidMount
+        2. 在 didMount 阶段, subscribe store
+        */
         componentDidMount() {
           this.trySubscribe();
         }
 
+        /*
+        1. lifeCycle: componentWillReceiveProps
+        2. 有新的 props 过来，updateState
+        */
         componentWillReceiveProps(nextProps) {
           if (!shallowEqual(nextProps, this.props)) {
             this.updateState(nextProps);
           }
         }
 
+       /*
+       unsubstribe ，否则会有问题（和事件一样的问题）
+        */
         componentWillUnmount() {
           this.tryUnsubscribe();
         }
 
         render() {
-          return (
-            <WrappedComponent ref='wrappedInstance'
-                              {...this.state.props} />
-          );
+          return ( <WrappedComponent ref='wrappedInstance' {...this.state.props} /> );
         }
       }
 
