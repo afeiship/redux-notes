@@ -71,6 +71,7 @@ export default function createProvider(React) {
 
       if (typeof children === 'function') {
         // warnAboutFunction();
+        // for: react < v0.13
         children = children();
       } else {
         // warnAboutElement();
