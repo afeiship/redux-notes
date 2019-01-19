@@ -108,6 +108,27 @@ export default function createConnect(React) {
           }
         }
 
+
+        handleChange() {
+          if (this.updateStateProps()) {
+            this.updateState();
+          }
+        }
+
+        updateState(props = this.props) {
+          const nextState = this.computeNextState(props);
+          if (!shallowEqual(nextState, this.state.props)) {
+            /*
+            如果有变化，更新 nextState
+            setState 通知变化
+            */
+            this.setState({
+              props: nextState
+            });
+          }
+        }
+
+
         /*
         1. lifeCycle: componentDidMount
         2. 在 didMount 阶段, subscribe store
