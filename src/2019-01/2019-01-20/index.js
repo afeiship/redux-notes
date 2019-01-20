@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { Provider, connect } from './react-redux-4.0.0'
 
 // React component
 class Counter extends Component {
