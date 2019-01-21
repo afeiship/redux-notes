@@ -59,6 +59,7 @@ const App = connect(
   mapDispatchToProps
 )(Counter)
 
+// APP Bootstrap:
 ReactDOM.render(
   <Provider store={store}>
     <App />
