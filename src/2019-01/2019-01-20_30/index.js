@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
-import { Provider, connect } from './react-redux-4.0.0'
+import { Provider, connect } from './react-redux-4.4.5/lib'
 
 // React component
 class Counter extends Component {
@@ -59,7 +59,6 @@ const App = connect(
   mapDispatchToProps
 )(Counter)
 
-// APP Bootstrap:
 ReactDOM.render(
   <Provider store={store}>
     <App />
