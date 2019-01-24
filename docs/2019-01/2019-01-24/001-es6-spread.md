@@ -8,7 +8,6 @@ function abc(inOptions={}){
 }
 abc();
 // true/false
-
 abc({ pure: false, withRef: 'tes'});
 // false/'tes'
 ```
