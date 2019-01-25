@@ -102,7 +102,7 @@ serviceWorker.unregister();
 ```
 
 #### 把side下面的index.js改造成容器组件
-```
+```js
 /**
  * Side容器组件
  */
@@ -137,7 +137,7 @@ export default connect(
 ```
 
 修改side下的View.js,它的显示和隐藏使用state里的show来控制
-```
+```js
 /**
  * Side UI组件
  */
@@ -171,7 +171,7 @@ class View extends React.Component {
 export default View;
 ```
 #### 修改header容器组件和UI组件
-```
+```js
 /**
  * header容器组件
  */
@@ -208,7 +208,7 @@ export default connect(
 
 ```
 
-```
+```js
 /**
  * headerUi组件
  */
