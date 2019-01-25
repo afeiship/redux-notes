@@ -3,14 +3,16 @@
  */
 import React from 'react';
 import View from './View'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import connect from '../../redux-mine/connect';
 import { showSideAction } from './reducer';
 import { bindActionCreators } from 'redux';
 
 class Side extends React.Component {
 
-    render() {
-        return <View {...this.props}/>
+  render() {
+      console.log(this.state, this.props);
+      return <View {...this.props}/>
     }
 }
 
@@ -25,7 +27,11 @@ function mapDispatchToProps(dispatch) {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Side);
+// export default connect(
+// 	mapStateToProps,
+// 	mapDispatchToProps
+// )(Side);
+
+export default connect()(Side)
+
+

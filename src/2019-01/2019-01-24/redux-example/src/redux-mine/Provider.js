@@ -1,4 +1,10 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 export default class extends React.Component{
+  static childContextTypes ={
+    store: PropTypes.object
+  };
   getChildContext() {
     return { store: this.store };
   }
