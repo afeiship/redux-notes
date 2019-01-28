@@ -13,6 +13,7 @@ export default function connect(){
         super(props, context);
         this.store = context.store;
         this.state = { storeState: null };
+        window.store = this.store;
       }
 
       componentDidMount() {

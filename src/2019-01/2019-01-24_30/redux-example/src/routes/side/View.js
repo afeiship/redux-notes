@@ -16,6 +16,7 @@ class View extends React.Component {
     	if (show) {
     		return (
     			 <div onClick={this._onClick}>
+                <h3>{ this.props.header.title }</h3>
                     <ul className="list">
                         <li className="item">首页</li>
                         <li className="item">影片</li>
