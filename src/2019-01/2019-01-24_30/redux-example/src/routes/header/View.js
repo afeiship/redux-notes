@@ -6,8 +6,10 @@ import React from 'react';
 class View extends React.Component {
 
   _onClick = ()=>{
-    window.store.dispatch({ type: 'SET-TITLE', payload: Math.random() +'title' })
-    // console.log('click in header ui', this.props, this.context);
+    window.store.dispatch({
+      type: 'SET-TITLE',
+      payload: Math.random() +'title'
+    })
   };
 
   _onToggle = ()=> {
