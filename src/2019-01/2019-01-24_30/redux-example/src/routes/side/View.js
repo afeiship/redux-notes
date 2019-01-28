@@ -12,8 +12,8 @@ class View extends React.Component {
   };
 
     render() {
-    	let { show } = this.props;
-    	if (show) {
+      let { show } = this.props;
+      if (this.props.side && this.props.side.show) {
     		return (
     			 <div onClick={this._onClick}>
                 <h3>{ this.props.header.title }</h3>
