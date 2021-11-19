@@ -8,7 +8,8 @@
     "email": "1290657123@qq.com"
   },
   "scripts": {
-    "dev": "webpack -w"
+    "dev": "webpack -w",
+    "start": "cd example && npm run start"
   },
   "license": "MIT",
   "dependencies": {

@@ -1,32 +1,36 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {createStore} from 'redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
 
-const root = document.getElementById('root')
+const root = document.getElementById('root');
 
 // reducer 纯函数
 const reducer = (state = 0, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return state + 1
+      return state + 1;
     case 'DECREMENT':
-      return state - 1
+      return state - 1;
+    case 'ANY':
+      store.dispatch({ type: 'DECREMENT' });
+      return state;
     default:
-      return state
+      return state;
   }
-}
+};
 
 // 创建一个store
-const store = createStore(reducer)
+const store = createStore(reducer);
 
 const render = () => ReactDOM.render(
-  <div>
+  <div className='counter'>
     <span>{store.getState()}</span>
-    <button onClick={() => store.dispatch({type: 'INCREMENT'})}>INCREMENT</button>
-    <button onClick={() => store.dispatch({type: 'DECREMENT'})}>DECREMENT</button>
+    <button onClick={() => store.dispatch({ type: 'INCREMENT' })}>INCREMENT</button>
+    <button onClick={() => store.dispatch({ type: 'DECREMENT' })}>DECREMENT</button>
+    <button onClick={() => store.dispatch({ type: 'ANY' })}>ZUOSI</button>
   </div>,
-  root
-)
-render()
+  root,
+);
+render();
 // store订阅一个更新函数，待dispatch之后，执行这个更新函数，获取新的值
-store.subscribe(render)
+store.subscribe(render);
