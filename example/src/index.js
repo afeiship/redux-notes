@@ -11,26 +11,26 @@ const reducer = (state = 0, action) => {
       return state + 1;
     case 'DECREMENT':
       return state - 1;
-    case 'ANY':
-      store.dispatch({ type: 'DECREMENT' });
-      return state;
     default:
       return state;
   }
 };
 
 // 创建一个store
-const store = createStore(reducer);
+const store = createStore(reducer, 10);
 
-const render = () => ReactDOM.render(
-  <div className='counter'>
-    <span>{store.getState()}</span>
-    <button onClick={() => store.dispatch({ type: 'INCREMENT' })}>INCREMENT</button>
-    <button onClick={() => store.dispatch({ type: 'DECREMENT' })}>DECREMENT</button>
-    <button onClick={() => store.dispatch({ type: 'ANY' })}>ZUOSI</button>
-  </div>,
-  root,
-);
-render();
+const render = () => {
+  return ReactDOM.render(
+    <div className='counter'>
+      <span>{store.getState()}</span>
+      <button onClick={() => store.dispatch({ type: 'INCREMENT' })}>INCREMENT</button>
+      <button onClick={() => store.dispatch({ type: 'DECREMENT' })}>DECREMENT</button>
+    </div>,
+    root,
+  );
+};
 // store订阅一个更新函数，待dispatch之后，执行这个更新函数，获取新的值
 store.subscribe(render);
+
+render();
+
