@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import logMiddleware from './middlewares/log';
 
 const root = document.getElementById('root');
 
@@ -17,7 +18,7 @@ const reducer = (state = 0, action) => {
 };
 
 // 创建一个store
-const store = createStore(reducer, 10);
+const store = createStore(reducer, 10, applyMiddleware(logMiddleware));
 
 const render = () => {
   return ReactDOM.render(
